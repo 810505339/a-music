@@ -11,7 +11,6 @@ declare module '@vue/runtime-core' {
     ControllerVolume: typeof import('./src/components/aPlayer/controllerVolume.vue')['default']
     Counter: typeof import('./src/components/Counter.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
-    IconButton: typeof import('./src/components/aPlayer/iconButton.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Thumbnail: typeof import('./src/components/aPlayer/thumbnail.vue')['default']
