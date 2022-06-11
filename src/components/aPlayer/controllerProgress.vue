@@ -1,5 +1,7 @@
 <script setup lang='ts'>
 import type { CSSProperties } from 'vue'
+import {useSongStore} from "~/store"
+const songStore = useSongStore()
 // const sliderBar = $ref<HTMLElement | null>(null)
 const sliderStyle = $computed<CSSProperties>(() => {
   return {
@@ -30,20 +32,22 @@ const props = defineProps<{
 // function mouseup(e: MouseEvent) {
 
 // }
+const emit = defineEmits<{
+  (e: 'changePlayStatus', palying:boolean): void
+}>()
+function changeMusicState(){
+     emit("changePlayStatus",songStore.playing)
+}
 </script>
 
 <template>
-  <div>
-    <!-- <button @click="left++">
-      +
-    </button> -->
-    <!-- <div ref="sliderBar"  bg-gray-50 cursor-pointer block w-full transition @mousedown="mousedown" @mouseup="mouseup"> -->
-      <span>{{currentTime}} / {{duration}}</span>
-      <div relative bg="gray-200/300" h-2px block w-full transition >
+<div flex items-center justify-center >
+        <i mr-20px :class="songStore.playing ? 'i-ic-round-pause-circle-outline' : 'i-ic-round-play-circle-outline' " icon-btn w-30px h-30px   @click="changeMusicState"></i>
+      <div relative bg="gray-200/300" h-2px inline-block w-466px transition >
         <div absolute bg-green-500 top-0 bottom-0 :style="sliderStyle" />
         <div h-10px w-10px absolute rounded-full bg-white transition border="~ gray-800" shadow-md hover:scale-150
           top="50%" translate-y="-50%" :style="handleStyle" />
       </div>
-    </div>
-  <!-- </div> -->
+      <span v-if="duration" ml-20px>{{currentTime}} / {{duration}}</span>
+  </div>
 </template>
