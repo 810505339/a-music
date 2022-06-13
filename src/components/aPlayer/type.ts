@@ -1,5 +1,5 @@
 export default interface MusicPlayerProps {
-  title?: string
+  name?: string
   artist?: string
   src: string
   pic?: string
