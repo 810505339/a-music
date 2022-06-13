@@ -1,29 +1,20 @@
 <script setup lang="ts">
-import type MusicPlayerProps from './type'
-import {useSongStore} from "~/store"
-const songStore = useSongStore()
-const props = defineProps<{
-  music: MusicPlayerProps
-}>()
-let style = $computed(()=>{
+import { storeToRefs } from 'pinia'
+import { useSongStore } from '~/store'
+const { currentMusic } = storeToRefs(useSongStore())
+
+const style = $computed(() => {
   return {
-    backgroundImage: `url(${props.music.pic})`
+    backgroundImage: `url(${currentMusic.value.pic})`,
   }
 })
-
-const playMusic = ()=>{
-  songStore.setplaySong(props.music)
-}
 </script>
 
 <template>
- <div rounded m5 bg-white shadow-md  display-flex items-center>
-  <div h-66px w-66px  relative :style="style" bg-no-repeat bg-contain>
-  <div absolute top-0 left-0 w-full h-full bg-black-500 opacity-50 ></div>
-    <button @click="playMusic()" class="a-player-play" transition absolute z-1>
-      <i class="i-ic-round-play-circle" icon-btn w-full h-full   />
+  <div h-90px w-90px relative shrink-0 :style="style" bg-no-repeat bg-cover>
+    <div absolute top-0 left-0 w-full h-full bg-black-500 opacity-20 />
+    <button transition absolute z-1 :class="currentMusic.playing ? 'a-player-pause' : 'a-player-play'" @click="toggle">
+      <i icon-btn w-full h-full :class="currentMusic.playing ? 'i-ic-round-pause-circle' : 'i-ic-round-play-circle'" />
     </button>
-  </div>
-  <div flex-1>{{music.name}} / {{music.artist}}</div>
   </div>
 </template>

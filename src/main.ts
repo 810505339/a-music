@@ -2,14 +2,14 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import routes from 'virtual:generated-pages'
 import App from './App.vue'
-import { setupStore } from './store';
+import { setupStore } from './store'
 
 import '@unocss/reset/tailwind.css'
 import './styles/main.css'
 import 'uno.css'
 
 const app = createApp(App)
-setupStore(app);
+setupStore(app)
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,

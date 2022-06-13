@@ -11,8 +11,12 @@ declare module '@vue/runtime-core' {
     ControllerVolume: typeof import('./src/components/aPlayer/controllerVolume.vue')['default']
     Counter: typeof import('./src/components/Counter.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
+    Info: typeof import('./src/components/aPlayer/info.vue')['default']
+    Lyric: typeof import('./src/components/aPlayer/lyric.vue')['default']
+    PlayerIcons: typeof import('./src/components/aPlayer/playerIcons.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SongList: typeof import('./src/components/aPlayer/songList.vue')['default']
     Thumbnail: typeof import('./src/components/aPlayer/thumbnail.vue')['default']
   }
 }

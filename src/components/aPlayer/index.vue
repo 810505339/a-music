@@ -1,67 +1,31 @@
 <script setup lang="ts">
-import type MusicPlayerProps from './type'
-import {useSongStore} from "~/store"
-const songStore = useSongStore()
+import Thumbnail1 from './thumbnail.vue'
+import type MusicPlayerProps from '~/type/song'
+import { useSongStore } from '~/store'
 
-defineProps<{
-  music: MusicPlayerProps
+const props = defineProps<{
+  music: MusicPlayerProps[]
 }>()
+const songStore = useSongStore()
+songStore.init(props.music)
+const audio = $ref<HTMLAudioElement | null>(null)
+const currentSrc = $computed(() => songStore.currentMusic.src)
+function onTimeupdate() {
 
-const video:any = $ref<HTMLAudioElement | null>(null)
-let currentMusicSrc = $ref('')  //nowPlayTime
-let currentTime = $ref('')  //nowPlayTime
-let duration = $ref('')  //allPlayTime
-let allSecondTimes = $ref('')  //allPlaySecondTimes
-let percent = $ref('')
-let leftWidth = $ref(0)
+}
+function play() {
+  audio!.play()
+}
+function canPlay() {
 
-
- function play() {
-     video?.play()
-}
- function pause() {
-     video?.pause()
-     songStore.setPlaying(false)
-}
-function canPlay(){
-  allSecondTimes = video.duration
-  duration = handleTime(video.duration)
-  currentTime = "00:00"
-  songStore.setPlaying(true)
-}
-function handleTime(val:any){
-  let min = String(Math.floor(val/60) % 60).padStart(2,"0");
-  let sec = String(parseInt(val % 60)).padStart(2,"0");
-  return `${min}:${sec}`
-}
-function onTimeupdate(e){
-  currentTime = handleTime(e.target.currentTime);
-  percent = e.target.currentTime / allSecondTimes
-  leftWidth = (percent * 100).toFixed(4) + "%"
-}
-
-function playMusic(item:object){ 
-   video.src = item.src
-   play()
-}
-
-watch(() => songStore.playSong, () => {
-  playMusic(songStore.playSong)
-})
-function changePlayStatus(status:boolean){
-  if(status){
-    pause()
-  }else{
-    play()
-    songStore.setPlaying(true)
-  }
 }
 </script>
 
 <template>
-<div  m-a>
-  <thumbnail v-for="item in music" :music="item" @playMusic="playMusic" />
-  <video ref="video"  @timeupdate="onTimeupdate"  name="media" @canplaythrough="canPlay"><source :src="currentMusicSrc" type="audio/mpeg"></video>
-  <controller-progress v-if="songStore.playSong" @changePlayStatus="changePlayStatus" :duration="duration" :currentTime="currentTime" :leftWidth="leftWidth" />
-</div>
+  <div rounded ma bg-white shadow-md max-w-500px>
+    <controller />
+    <song-list />
+    <audio ref="audio" name="media" :src="currentSrc" preload="auto" @timeupdate="onTimeupdate"
+      @canplaythrough="canPlay" @play="play" />
+  </div>
 </template>
