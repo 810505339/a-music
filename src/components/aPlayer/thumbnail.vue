@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useSongStore } from '~/store'
+const emit = defineEmits(['toggle'])
 const { currentMusic } = storeToRefs(useSongStore())
-
 const style = $computed(() => {
   return {
     backgroundImage: `url(${currentMusic.value.pic})`,
   }
 })
+function toggle() {
+  currentMusic.value.playing = !currentMusic.value.playing
+  console.log(currentMusic.value.playing)
+
+  emit('toggle')
+}
 </script>
 
 <template>

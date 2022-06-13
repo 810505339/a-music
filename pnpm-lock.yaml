@@ -9,6 +9,7 @@ specifiers:
   '@vitejs/plugin-vue': ^2.3.3
   '@vue/test-utils': ^2.0.0
   '@vueuse/core': ^8.6.0
+  dayjs: ^1.11.3
   eslint: ^8.16.0
   jsdom: ^19.0.0
   pinia: ^2.0.14
@@ -26,6 +27,7 @@ specifiers:
 
 dependencies:
   '@vueuse/core': 8.6.0_vue@3.2.36
+  dayjs: 1.11.3
   pinia: 2.0.14_typescript@4.7.2+vue@3.2.36
   vue: 3.2.36
   vue-router: 4.0.15_vue@3.2.36
@@ -1127,6 +1129,10 @@ packages:
       whatwg-mimetype: 3.0.0
       whatwg-url: 10.0.0
     dev: true
+
+  /dayjs/1.11.3:
+    resolution: {integrity: sha512-xxwlswWOlGhzgQ4TKzASQkUhqERI3egRNqgV4ScR8wlANA/A9tZ7miXa44vTTKEq5l7vWoL5G57bG3zA+Kow0A==}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
