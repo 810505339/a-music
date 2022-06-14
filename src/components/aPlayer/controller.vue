@@ -4,15 +4,16 @@ import { useSongStore } from '~/store'
 
 const songStore = useSongStore()
 const audio = $ref<HTMLAudioElement | null>(null)
-let allTime = $ref('00:00')
-let curTime = $ref('00:00')
-let progress = $ref('0')
+let allTime = $ref('00:00') // 歌曲总时间
+let curTime = $ref('00:00') // 播放的时间
+let progress = $ref(0) // 进度条
+
 const current = $computed(() => songStore.currentMusic)
 
 function onTimeupdate(e: Event) {
   const audio = e.target as HTMLAudioElement
   const { duration, currentTime } = audio
-  progress = (currentTime / duration * 100).toFixed(4)
+  progress = (currentTime / duration * 100)
   curTime = dayjs.unix(currentTime).format('mm:ss')
 }
 // 切换播放
@@ -44,7 +45,7 @@ function canPlay() {
       <info />
       <lyric />
       <div flex>
-        <controller-progress v-model:percent="progress" basis-full :duration="allTime" :current-time="curTime" />
+        <controller-progress v-model:percent="progress" v-model:current-time="curTime" basis-full :duration="allTime" />
         <player-icons />
       </div>
     </div>
